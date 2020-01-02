@@ -1,6 +1,54 @@
+//object literal
+const mahasiswa1 = {
+  nama: 'noname',
+  energi: 10,
+  //getters
+  get ninckNam () {
+    return this.nama
+  },
+  makan: function(porsi) {
+    this.energi += porsi
+    console.log('>> this', this)
+  }
+}
+// mahasiswa1.makan(10)
+
+
+// function declaration 
+function mahasiswa2(nama, energi) {
+  const mhs = {}
+  mhs.nama = nama
+  mhs.energi = energi
+
+  //method
+  mhs.makan = function(porsi) {
+    this.energi += porsi
+    console.log('>> this', this)
+    console.log(`halo ${this.nama}`)
+  }
+  return mhs
+}
+// let tmpMhs1 = mahasiswa2('andi', 20)
+// tmpMhs1.makan(10)
+
+// constructor function
+function mahasiswa3(nama, energi) {  
+  this.nama = nama
+  this.energi = energi
+
+  //method
+  this.makan = function(porsi) {
+    this.energi += porsi
+    console.log('>> this', this)
+    console.log(`halo ${this.nama}`)
+  }
+}
+let tmpMhs2 = new mahasiswa3('andi', 20)
+tmpMhs2.makan(5)
+
 
 // constructor object
-function mahasiswa(nama, energi) {
+function mahasiswa4(nama, energi) {
 //   let mhs = {}
 //   let mhs = Object.create(mahasiswa.prototype)
   
@@ -10,11 +58,11 @@ function mahasiswa(nama, energi) {
 //   return mhs
 }
 
-mahasiswa.prototype.makan = function(value) {
+mahasiswa4.prototype.makan = function(value) {
   this.energi += value;
   console.log(`energi ${this.nama} : ${this.energi}`)
 }
 
-let mhs1 = new mahasiswa("budi", 10)
-console.log(mhs1)
-// mhs1.makan(10)
+// let tmpMhs2 = new mahasiswa3("budi", 10)
+// console.log(tmpMhs1)
+// tmpMhs1.makan(10)
