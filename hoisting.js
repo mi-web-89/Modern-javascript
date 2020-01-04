@@ -1,16 +1,18 @@
-// sayHello(a)
+console.log('userName >>', userName)
+console.log('old >>', old)
 
-console.log(a)
+var userName = "noname"
+var old = 32
 
-var user = "test"
-var b = 32
+console.log('sayHello without "()" >>', sayHello) //return content of function
+console.log('sayHello', sayHello(userName, old)) //return value or execute code
 
-sayHello(user)
-
-function sayHello(user) {
-  console.log(`hello ${user}, ${b} years old`)
+function sayHello(user, umur) {
+  // console.log('content sayHello >>', `hello ${user}, ${umur} years old`)
+  return (`hello ${user}, ${umur} years old`)
 }
 
+//more hoisting
 function a() {
   console.log('ini a')
   

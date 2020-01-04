@@ -23,13 +23,13 @@ function mahasiswa2(nama, energi) {
   //method
   mhs.makan = function(porsi) {
     this.energi += porsi
-    console.log('>> this', this)
+    console.log('function declaration >>', this)
     console.log(`halo ${this.nama}`)
   }
   return mhs
 }
-// let tmpMhs1 = mahasiswa2('andi', 20)
-// tmpMhs1.makan(10)
+let tmpMhs1 = mahasiswa2('budi', 20)
+tmpMhs1.makan(10)
 
 // constructor function
 function mahasiswa3(nama, energi) {  
@@ -39,30 +39,9 @@ function mahasiswa3(nama, energi) {
   //method
   this.makan = function(porsi) {
     this.energi += porsi
-    console.log('>> this', this)
+    console.log('construction function >>', this)
     console.log(`halo ${this.nama}`)
   }
 }
 let tmpMhs2 = new mahasiswa3('andi', 20)
 tmpMhs2.makan(5)
-
-
-// constructor object
-function mahasiswa4(nama, energi) {
-//   let mhs = {}
-//   let mhs = Object.create(mahasiswa.prototype)
-  
-  this.nama = nama
-  this.energi = energi
-  
-//   return mhs
-}
-
-mahasiswa4.prototype.makan = function(value) {
-  this.energi += value;
-  console.log(`energi ${this.nama} : ${this.energi}`)
-}
-
-// let tmpMhs2 = new mahasiswa3("budi", 10)
-// console.log(tmpMhs1)
-// tmpMhs1.makan(10)
