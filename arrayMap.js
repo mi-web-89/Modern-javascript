@@ -1,5 +1,4 @@
 // function immedietly
-
 // let add = (function () {
 //   let counter = 0;
 
@@ -55,13 +54,13 @@ const categories = [
   }
 ];
 
-const tmp = categories.map((v, i, arr) => {
+const tmp = categories.map((v) => {
   return function () {
-    return arr[i];
+    return v;
   }();
 });
 
-// console.log(tmp);
+console.log(tmp);
 
 function getCategories(categories) {
   let rslt = [];
@@ -81,4 +80,4 @@ function getCategories(categories) {
   console.log(rslt);
 }
 
-getCategories(categories)
+// getCategories(categories)
