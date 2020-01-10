@@ -10,7 +10,12 @@ console.log('array >>', b)
 //desctructuring object
 const mhs = {
   nama: 'sandi',
-  umur: 30
+  umur: 30,
+  nilai: {
+    tugas: 80,
+    uts: 80,
+    uas: 70
+  }
 }
 
 const {nama: n, umur: u, email: e = 'test@gmail.com' } = mhs
@@ -20,8 +25,8 @@ function getNama({nama}) {
   return nama
 }
 
-function getMhs({nama, umur}) {
-  return `nama :  ${nama} dan umur ${umur}`
+function getMhs({nama, umur, nilai: { uas }}) {
+  return `nama :  ${nama}, umur: ${umur} dan nilai uas: ${uas}`
 }
 
 console.log('object >>', getNama(mhs))
@@ -39,3 +44,15 @@ const [tambah, kurang, kali] = kalkulasi(2, 5)
 
 console.log('tambah dan kali >>', tambah)
 
+//----------------- looping -----------------
+perkenalan.forEach((m, i) => {
+  console.log(`${m} >> ${i}`)
+})
+
+for(const m of perkenalan) {
+  console.log('for .. of >>', m)
+}
+
+for(const [i, m] of perkenalan.entries()) {
+  console.log('for..of with entries >>', i, m)
+}
