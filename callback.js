@@ -1,3 +1,4 @@
+/* ------  synchronus callback  ------- */
 function hallo(nama) {
   alert(`hallo ${nama}`)   
 }
@@ -7,40 +8,34 @@ function getNama(callback) {
   callback(nama)
 } 
 
-// getNama(hallo)
+// getNama(hallo) 
 // getNama( n => alert(`hallo ${n}`))
-// getNama( function (n) { 
-//   alert(`hallo ${n}`) 
-// }) 
+// getNama( function (n) { console.log(`hallo ${n}`) }) 
 
+/* synchronus callback */
+function getProductUrl(keyword) {
+  return `https//www.blibli.com/backend/search/products?searchTerm=${keyword}`
+}
 
-// async callback 
+function success(res) {
+  console.log(res)
+}
+
+function error(err) {
+  console.error(err)
+}
+
 function getData(url, success, error) {
   //success & error is callback
   let xhr = new XMLHttpRequest();
-  
+
   if(xhr.readyState === 4) {
-    if(xhr.status === 200) {
-      success(xhr.response)
-    }
-    else if(xhr.status === 404) {
-      error()
-    }
+    if(xhr.status === 200) success(xhr.response)
+    else error(xhr.response)
   }
 
   xhr.open('get', url)
   xhr.send()
 }
 
-// function success(res) {
-//   console.log(res)
-// }
-
-// function error() {
-//   alert('error')
-// }
-
-getData('mahasiswa.json', (res) => {
-    console.log(res)
-  }, () => alert('error')
-)
+getData(getProductUrl('budi'), success, error)
