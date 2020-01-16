@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX</title>
+  <script>
+    function getProductsUrl(keyword) {
+      return `https://www.blibli.com/backend/search/products?searchTerm=${keyword}`;
+    }
+
+    function getProducts(keyword) {
+      const promise = new Promise((resolve, reject) => {
+        const url = getProductsUrl(keyword)
+        const ajax = new XMLHttpRequest()
+
+        ajax.onload = function () {
+          if (ajax.status === 200) {
+            const response = JSON.parse(ajax.responseText)
+            resolve(response)
+          } else {
+            resolve(Error('error'))
+          }
+        }
+        ajax.open('get', url)
+        ajax.send()
+      })
+      return promise
+    }
+
+    function clearProducts() {
+      const productUl = document.getElementById("products");
+      productUl.textContent = "";
+    }
+
+    function displayProducts(data) {
+      data.data.products.forEach(product => displayProduct(product));
+    }
+
+    function displayProduct(product) {
+      const productLi = document.createElement("li");
+      productLi.textContent = product.name;
+
+      const productUl = document.getElementById("products");
+      productUl.appendChild(productLi);
+    }
+
+    function clearTableProducts() {
+      const productUl = document.getElementById("table-products");
+      productUl.textContent = "";
+    }
+
+    function displayTableProducts(data) {
+      const table = document.createElement("table");
+      table.setAttribute("border", 1);
+
+      let index = 0;
+      data.data.products.forEach(product => {
+        table.insertRow(index).insertCell(0).innerText = product.name;
+        index++;
+      });
+
+      const tableProduct = document.getElementById("table-products");
+      tableProduct.appendChild(table);
+    }
+
+    function buttonClick() {
+      const url = getProductsUrl(document.getElementById("keyword").value)
+      getProducts(url)
+        // promise chain
+        .then((res) => {
+          console.log(res.data)
+          return res.data.products
+        })
+          .then(products => {          
+            clearProducts()
+            products.forEach(product => displayProduct(product))
+          })
+        .catch(err => console.error(err))
+    }
+
+    function promiseAll() {
+      const url1 = getProductsUrl(document.getElementById("keyword1").value)
+      const url2 = getProductsUrl(document.getElementById("keyword2").value)
+
+      console.log(url1, url2)
+
+      const promise1 = getProducts(url1)
+      const promise2 = getProducts(url2)
+
+      Promise.all([promise1, promise2])
+      .finally(() => {
+        console.log('selesai dieksekusi')
+      })
+      .then(res => {
+        console.log('res >>', res)
+        return res.map(value => value.data.products)
+      })
+      .then( values => {
+        console.log('values >>', values)
+        clearProducts()
+        values.forEach(products => {
+          products.forEach(product => {
+            displayProduct(product)
+          })
+        })
+      })
+      .catch( err => {
+        console.error(err)
+      })
+    }
+  </script>
+</head>
+
+<body>
+  <!-- promise all -->
+  <div>
+    <input type="text" id="keyword1">
+    <input type="text" id="keyword2">
+    <button onclick="promiseAll()">Promise all</button>
+  </div>
+  <br/>
+  <input type="text" id="keyword">
+  <button onclick="buttonClick()">Search Products</button>
+  <ul id="products"></ul>
+  <div id="table-products"></div>
+</body>
+
+</html>
